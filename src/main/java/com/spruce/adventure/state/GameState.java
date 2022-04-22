@@ -1,6 +1,7 @@
 package com.spruce.adventure.state;
 
 import com.spruce.adventure.Game;
+import com.spruce.adventure.entity.component.Component;
 import com.spruce.adventure.entity.player.Player;
 import com.spruce.adventure.object.GameObject;
 
@@ -12,13 +13,14 @@ public class GameState extends State{
 
     private List<GameObject> gameObjects = new ArrayList<>();
 
+    private Player testPlayer = new Player(100, 100);
+
     public GameState(){
         init();
     }
 
     private void init(){
-        Player player = new Player(100, 100);
-        addObjectToGame(player);
+        addObjectToGame(testPlayer);
 
         for(GameObject go : gameObjects){
             go.start();
@@ -34,7 +36,10 @@ public class GameState extends State{
 
     @Override
     public void tick() {
-        for(GameObject go : gameObjects){
+        for(GameObject go : gameObjects) {
+            for (Component c : go.getComponents()) {
+                c.tick();
+            }
             go.tick();
         }
     }

@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GameObject {
+public class GameObject {
 
     private List<Component> components = new ArrayList<>();
 
@@ -29,7 +29,9 @@ public abstract class GameObject {
         }
     }
 
-    public abstract void tick();
+    public void tick(){
+
+    }
 
     public void drawObject(Graphics g){
         for(Component c : components){

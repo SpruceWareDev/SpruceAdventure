@@ -2,17 +2,13 @@ package com.spruce.adventure.entity.component;
 
 import java.awt.*;
 
-public class Component {
+public abstract class Component {
 
     public boolean running = false;
 
-    public void start(){
+    public abstract void start();
 
-    }
-
-    public void tick(){
-
-    }
+    public abstract void tick();
 
     public void draw(Graphics g){
 

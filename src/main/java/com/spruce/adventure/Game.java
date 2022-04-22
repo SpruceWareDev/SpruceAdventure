@@ -50,6 +50,6 @@ public class Game {
     }
 
     public void tick(){
-
+        currentState.tick();
     }
 }
