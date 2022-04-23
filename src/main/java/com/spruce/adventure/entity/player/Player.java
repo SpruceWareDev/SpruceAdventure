@@ -1,34 +1,38 @@
 package com.spruce.adventure.entity.player;
 
-import com.spruce.adventure.entity.component.Component;
-import com.spruce.adventure.entity.component.components.MovementController;
-import com.spruce.adventure.entity.component.components.SpriteRenderer;
-import com.spruce.adventure.object.GameObject;
+import com.spruce.adventure.assets.Assets;
+import com.spruce.adventure.entity.Entity;
+import com.spruce.adventure.input.KeyInput;
 
-public class Player extends GameObject {
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 
-    private float x, y;
+public class Player extends Entity {
 
-    private SpriteRenderer renderer;
-    private MovementController controller;
+    private String name;
+    private float speed = 2.0f;
 
-    public Player(float x, float y){
-        this.x = x;
-        this.y = y;
+    public Player(String name, float x, float y) {
+        super(name, x, y, 80, 150);
+        this.name = name;
     }
 
-    @Override
-    public void start() {
-        renderer = new SpriteRenderer("assets/sprites/knight1.png", x, y, 5);
-        controller = new MovementController(x, y, 3);
-        addComponent(controller);
-        addComponent(renderer);
+    public void tick(){
+        if(KeyInput.isKeyPressed(KeyEvent.VK_W)){
+            setY(getY() - speed);
+        }
+        if(KeyInput.isKeyPressed(KeyEvent.VK_S)){
+            setY(getY() + speed);
+        }
+        if(KeyInput.isKeyPressed(KeyEvent.VK_A)){
+            setX(getX() - speed);
+        }
+        if(KeyInput.isKeyPressed(KeyEvent.VK_D)){
+            setX(getX() + speed);
+        }
     }
 
-    @Override
-    public void tick() {
-        this.x = controller.getX();
-        this.y = controller.getY();
-        renderer.updatePos(x, y);
+    public BufferedImage getSprite(){
+        return Assets.player;
     }
 }

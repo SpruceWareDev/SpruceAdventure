@@ -1,9 +1,11 @@
 package com.spruce.adventure;
 
+import com.spruce.adventure.assets.Assets;
 import com.spruce.adventure.display.Display;
+import com.spruce.adventure.entity.EntityManager;
+import com.spruce.adventure.entity.player.Player;
 import com.spruce.adventure.input.KeyInput;
-import com.spruce.adventure.state.GameState;
-import com.spruce.adventure.state.State;
+import com.spruce.adventure.world.World;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -15,7 +17,7 @@ public class Game {
     private BufferStrategy bs;
     private Graphics g;
 
-    private State currentState;
+    private World gameWorld;
 
     public Game(){
         init();
@@ -24,7 +26,9 @@ public class Game {
     private void init(){
         display = new Display("Spruce Adventure [Development Build 1]", 1280, 720);
         display.getFrame().addKeyListener(KeyInput.get());
-        currentState = new GameState();
+        Assets.init();
+
+        gameWorld = new World("");
     }
 
     public void render(){
@@ -40,9 +44,7 @@ public class Game {
 
         //Things to draw
 
-        if(currentState != null) {
-            currentState.render(g);
-        }
+        gameWorld.renderWorld(g);
 
         //end of drawing
         bs.show();
@@ -50,6 +52,6 @@ public class Game {
     }
 
     public void tick(){
-        currentState.tick();
+        gameWorld.tick();
     }
 }
