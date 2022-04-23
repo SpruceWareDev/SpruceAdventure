@@ -28,7 +28,7 @@ public class Game {
         display.getFrame().addKeyListener(KeyInput.get());
         Assets.init();
 
-        gameWorld = new World("");
+        gameWorld = new World("assets/worlds/testworld.world");
     }
 
     public void render(){

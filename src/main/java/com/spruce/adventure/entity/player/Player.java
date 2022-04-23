@@ -10,10 +10,10 @@ import java.awt.image.BufferedImage;
 public class Player extends Entity {
 
     private String name;
-    private float speed = 2.0f;
+    private float speed = 3f;
 
     public Player(String name, float x, float y) {
-        super(name, x, y, 80, 150);
+        super(name, x, y, 60, 100);
         this.name = name;
     }
 

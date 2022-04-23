@@ -34,9 +34,9 @@ public class GameLoop implements Runnable{
                     tps++;
                     accumulator -= tickRate;
                 }
-                render();
-                fps++;
             }
+            render();
+            fps++;
 
             if(currentTime > nextUpdateTime) {
                 System.out.println(String.format("FPS: %d  TPS: %d", fps, tps));
