@@ -28,7 +28,7 @@ public class Game {
         display.getFrame().addKeyListener(KeyInput.get());
         Assets.init();
 
-        gameWorld = new World("assets/worlds/testworld.world");
+        gameWorld = new World(this, "assets/worlds/testworld.world");
     }
 
     public void render(){
@@ -53,5 +53,9 @@ public class Game {
 
     public void tick(){
         gameWorld.tick();
+    }
+
+    public Display getDisplay() {
+        return display;
     }
 }

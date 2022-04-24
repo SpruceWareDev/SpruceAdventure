@@ -7,6 +7,8 @@ public class Entity {
     private float x, y, width, height;
     private String name;
 
+    public boolean centered = false;
+
     public Entity(String name, float x, float y, float width, float height){
         this.name = name;
         this.x = x;

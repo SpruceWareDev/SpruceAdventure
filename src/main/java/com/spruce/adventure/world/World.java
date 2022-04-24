@@ -1,5 +1,7 @@
 package com.spruce.adventure.world;
 
+import com.spruce.adventure.Game;
+import com.spruce.adventure.camera.Camera;
 import com.spruce.adventure.entity.EntityManager;
 import com.spruce.adventure.entity.player.Player;
 import com.spruce.adventure.tile.Tile;
@@ -15,12 +17,18 @@ public class World {
 
     private int playerStartX, playerStartY;
 
-    public EntityManager entityManager = new EntityManager();
+    public EntityManager entityManager = new EntityManager(this);
 
-    public World(String worldPath){
+    public Camera camera;
+
+    private Player thePlayer;
+
+    public World(Game game, String worldPath){
         loadWorld(worldPath);
 
-        entityManager.addEntityToWorld(new Player("Test Player", playerStartX, playerStartY));
+        camera = new Camera(game, 0, 0);
+        thePlayer = new Player("Test Player", playerStartX, playerStartY);
+        entityManager.addEntityToWorld(thePlayer);
     }
 
     private void loadWorld(String path){
@@ -51,6 +59,7 @@ public class World {
 
     public void tick(){
         //tick entities
+        camera.centerOnEntity(thePlayer);
         entityManager.tick();
     }
 
@@ -58,7 +67,7 @@ public class World {
         //render world
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){
-                getTileAtPos(x, y).renderTexture(g, x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT);
+                getTileAtPos(x, y).renderTexture(g, x * Tile.TILEWIDTH - camera.getxOffset(), y * Tile.TILEHEIGHT - camera.getyOffset());
             }
         }
 
