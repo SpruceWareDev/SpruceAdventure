@@ -5,6 +5,8 @@ import com.spruce.adventure.display.Display;
 import com.spruce.adventure.entity.EntityManager;
 import com.spruce.adventure.entity.player.Player;
 import com.spruce.adventure.input.KeyInput;
+import com.spruce.adventure.ui.font.FontRenderer;
+import com.spruce.adventure.ui.font.Fonts;
 import com.spruce.adventure.world.World;
 
 import java.awt.*;
@@ -45,6 +47,9 @@ public class Game {
         //Things to draw
 
         gameWorld.renderWorld(g);
+
+        //debug fps
+        FontRenderer.drawString(g, "FPS " + GameLoop.getFps(), 6, 22, Color.BLACK, Fonts.font22);
 
         //end of drawing
         bs.show();

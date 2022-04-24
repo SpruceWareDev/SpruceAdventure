@@ -1,5 +1,7 @@
 package com.spruce.adventure;
 
+import com.spruce.adventure.ui.font.FontRenderer;
+
 public class GameLoop implements Runnable{
 
     private Game game;
@@ -9,6 +11,8 @@ public class GameLoop implements Runnable{
 
     private int fps = 0, tps = 0;
     private double nextUpdateTime = 0;
+
+    private static int debugFPS = 0;
 
     private Thread gameThread;
 
@@ -40,6 +44,7 @@ public class GameLoop implements Runnable{
 
             if(currentTime > nextUpdateTime) {
                 System.out.println(String.format("FPS: %d  TPS: %d", fps, tps));
+                debugFPS = fps;
                 fps = 0;
                 tps = 0;
                 nextUpdateTime = System.currentTimeMillis() + 1000;
@@ -53,6 +58,10 @@ public class GameLoop implements Runnable{
 
     private void render(){
         game.render();
+    }
+
+    public static int getFps() {
+        return debugFPS;
     }
 
     public synchronized void start(){
