@@ -5,10 +5,12 @@ import com.spruce.adventure.GameLoop;
 import com.spruce.adventure.camera.Camera;
 import com.spruce.adventure.display.Display;
 import com.spruce.adventure.entity.EntityManager;
+import com.spruce.adventure.entity.ground.Grass;
 import com.spruce.adventure.entity.ground.Rock;
 import com.spruce.adventure.entity.player.Player;
 import com.spruce.adventure.tile.FloorTile;
 import com.spruce.adventure.tile.LargeRockTile;
+import com.spruce.adventure.tile.SmallGrassTile;
 import com.spruce.adventure.tile.Tile;
 import com.spruce.adventure.util.Utils;
 
@@ -98,7 +100,12 @@ public class World {
                 int chance = random.nextInt(20);
                 if(chance == 1){
                     if(!(getTileAtPos(x, y) instanceof FloorTile)) {
+                        //adds random rocks to the world
                         entityManager.addEntityToWorld(new Rock(x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT, 32, 32));
+                    }
+                }else if(chance == 2 || chance == 3){
+                    if((getTileAtPos(x, y) instanceof SmallGrassTile)){
+                        entityManager.addEntityToWorld(new Grass(x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT, 72, 72));
                     }
                 }
             }
