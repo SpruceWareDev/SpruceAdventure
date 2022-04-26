@@ -14,6 +14,8 @@ public class Tile {
     protected BufferedImage texture;
     protected final int id;
 
+    public boolean solid = false;
+
     public Tile(BufferedImage texture, int id){
         this.id = id;
         this.texture = texture;
@@ -29,7 +31,7 @@ public class Tile {
         g.drawImage(texture, (int) x, (int) y, TILEWIDTH, TILEHEIGHT, null);
     }
 
-    public boolean isWalkable(){
-        return true;
+    public boolean isSolid(){
+        return solid;
     }
 }

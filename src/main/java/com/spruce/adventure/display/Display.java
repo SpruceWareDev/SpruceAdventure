@@ -7,8 +7,12 @@ public class Display extends JFrame {
 
     private Canvas canvas;
 
+    public static int startWidth, startHeight;
+
     public Display(String title, int width, int height){
         createDisplay(title, width, height);
+        startWidth = width;
+        startHeight = height;
     }
 
     private void createDisplay(String title, int width, int height){

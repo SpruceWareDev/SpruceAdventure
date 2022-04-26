@@ -1,7 +1,9 @@
 package com.spruce.adventure.world;
 
 import com.spruce.adventure.Game;
+import com.spruce.adventure.GameLoop;
 import com.spruce.adventure.camera.Camera;
+import com.spruce.adventure.display.Display;
 import com.spruce.adventure.entity.EntityManager;
 import com.spruce.adventure.entity.player.Player;
 import com.spruce.adventure.tile.Tile;
@@ -64,9 +66,13 @@ public class World {
     }
 
     public void renderWorld(Graphics g){
+        int xStart = (int) Math.max(0, camera.getxOffset() / Tile.TILEWIDTH), xEnd = (int) Math.min(width, (camera.getxOffset() + Display.startWidth) / Tile.TILEWIDTH + 1),
+                yStart = (int) Math.max(0, camera.getyOffset() / Tile.TILEHEIGHT), yEnd = (int) Math.min(height, (camera.getyOffset() + Display.startHeight) / Tile.TILEHEIGHT + 1);
+
+
         //render world
-        for(int y = 0; y < height; y++){
-            for(int x = 0; x < width; x++){
+        for(int y = yStart; y < yEnd; y++){
+            for(int x = xStart; x < xEnd; x++){
                 getTileAtPos(x, y).renderTexture(g, x * Tile.TILEWIDTH - camera.getxOffset(), y * Tile.TILEHEIGHT - camera.getyOffset());
             }
         }
