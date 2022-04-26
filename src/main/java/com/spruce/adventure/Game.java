@@ -48,8 +48,9 @@ public class Game {
 
         gameWorld.renderWorld(g);
 
-        //debug fps
+        //debug fps & tps
         FontRenderer.drawString(g, "FPS " + GameLoop.getFps(), 6, 22, Color.BLACK, Fonts.font22);
+        FontRenderer.drawString(g, "TPS " + GameLoop.getDebugTPS(), 6, 44, Color.BLACK, Fonts.font22);
 
         //end of drawing
         bs.show();

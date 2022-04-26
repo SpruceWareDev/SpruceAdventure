@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Assets {
 
-    public static BufferedImage floor, player, smallGrass;
+    public static BufferedImage floor, player, smallGrass, largeRock;
 
     //player sprites
     public static BufferedImage[] playerIdle = new BufferedImage[2];
@@ -33,6 +33,9 @@ public class Assets {
         playerWalkLeft[1] = loadImage("assets/sprites/player/knight_walk_2_left.png");
         playerWalkLeft[2] = loadImage("assets/sprites/player/knight_walk_3_left.png");
         playerWalkLeft[3] = loadImage("assets/sprites/player/knight_walk_4_left.png");
+
+        //ground sprites
+        largeRock = loadImage("assets/sprites/ground/stone_large.png");
     }
 
     public static BufferedImage loadImage(String path) {

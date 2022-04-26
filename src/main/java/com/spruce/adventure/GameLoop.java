@@ -12,7 +12,7 @@ public class GameLoop implements Runnable{
     private int fps = 0, tps = 0;
     private double nextUpdateTime = 0;
 
-    private static int debugFPS = 0;
+    private static int debugFPS = 0, debugTPS = 0;
 
     private Thread gameThread;
 
@@ -45,6 +45,7 @@ public class GameLoop implements Runnable{
             if(currentTime > nextUpdateTime) {
                 System.out.println(String.format("FPS: %d  TPS: %d", fps, tps));
                 debugFPS = fps;
+                debugTPS = tps;
                 fps = 0;
                 tps = 0;
                 nextUpdateTime = System.currentTimeMillis() + 1000;
@@ -63,6 +64,8 @@ public class GameLoop implements Runnable{
     public static int getFps() {
         return debugFPS;
     }
+
+    public static int getDebugTPS(){return debugTPS;}
 
     public synchronized void start(){
         if(running)

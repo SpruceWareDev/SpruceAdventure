@@ -7,14 +7,17 @@ public class Entity {
     private float x, y, width, height;
     private String name;
 
+    private EntityType type;
+
     public boolean centered = false;
 
-    public Entity(String name, float x, float y, float width, float height){
+    public Entity(String name, EntityType type, float x, float y, float width, float height){
         this.name = name;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.type = type;
     }
 
     public void tick(){
@@ -60,4 +63,6 @@ public class Entity {
     public void setHeight(float height) {
         this.height = height;
     }
+
+    public EntityType getType() {return type;}
 }

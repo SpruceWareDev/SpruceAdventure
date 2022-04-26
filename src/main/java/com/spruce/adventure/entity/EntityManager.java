@@ -38,11 +38,7 @@ public class EntityManager {
 
     public void drawEntities(Graphics g){
         for(Entity e : entities){
-            if(e.centered){
-                g.drawImage(e.getSprite(), (int) (e.getX() - world.camera.getxOffset()), (int) (e.getY() - world.camera.getyOffset()), (int) e.getWidth(), (int) e.getHeight(), null);
-            }else {
-                g.drawImage(e.getSprite(), (int) e.getX(), (int) e.getY(), (int) e.getWidth(), (int) e.getHeight(), null);
-            }
+            g.drawImage(e.getSprite(), (int) (e.getX() - world.camera.getxOffset()), (int) (e.getY() - world.camera.getyOffset()), (int) e.getWidth(), (int) e.getHeight(), null);
         }
     }
 }

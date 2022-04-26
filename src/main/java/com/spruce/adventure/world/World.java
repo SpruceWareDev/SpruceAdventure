@@ -5,12 +5,16 @@ import com.spruce.adventure.GameLoop;
 import com.spruce.adventure.camera.Camera;
 import com.spruce.adventure.display.Display;
 import com.spruce.adventure.entity.EntityManager;
+import com.spruce.adventure.entity.ground.Rock;
 import com.spruce.adventure.entity.player.Player;
+import com.spruce.adventure.tile.FloorTile;
+import com.spruce.adventure.tile.LargeRockTile;
 import com.spruce.adventure.tile.Tile;
 import com.spruce.adventure.util.Utils;
 
 import java.awt.*;
 import java.util.Arrays;
+import java.util.Random;
 
 public class World {
 
@@ -29,20 +33,23 @@ public class World {
         loadWorld(worldPath);
 
         camera = new Camera(game, 0, 0);
-        thePlayer = new Player("Test Player", playerStartX, playerStartY);
+        thePlayer = new Player("Test Player", playerStartX * Tile.TILEWIDTH, playerStartY * Tile.TILEHEIGHT);
         entityManager.addEntityToWorld(thePlayer);
+
+        //testing ground generation
+        generateGroundEntities();
     }
 
     private void loadWorld(String path){
         //gets the world as a string, so it can be parsed
         String loadedWorld = Utils.loadFileAsString(path);
         String[] tokens = loadedWorld.split("\\s+");
-        width = Utils.getIntFromString(tokens[0]);
-        height = Utils.getIntFromString(tokens[1]);
-        playerStartX = Utils.getIntFromString(tokens[2]);
-        playerStartY = Utils.getIntFromString(tokens[3]);
+        this.width = Utils.getIntFromString(tokens[0]);
+        this.height = Utils.getIntFromString(tokens[1]);
+        this.playerStartX = Utils.getIntFromString(tokens[2]);
+        this.playerStartY = Utils.getIntFromString(tokens[3]);
 
-        tileMap = new int[width][height];
+        this.tileMap = new int[width][height];
 
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){
@@ -62,10 +69,12 @@ public class World {
     public void tick(){
         //tick entities
         camera.centerOnEntity(thePlayer);
+        camera.tick();
         entityManager.tick();
     }
 
     public void renderWorld(Graphics g){
+        //render efficiency (only renders visible tiles)
         int xStart = (int) Math.max(0, camera.getxOffset() / Tile.TILEWIDTH), xEnd = (int) Math.min(width, (camera.getxOffset() + Display.startWidth) / Tile.TILEWIDTH + 1),
                 yStart = (int) Math.max(0, camera.getyOffset() / Tile.TILEHEIGHT), yEnd = (int) Math.min(height, (camera.getyOffset() + Display.startHeight) / Tile.TILEHEIGHT + 1);
 
@@ -79,5 +88,28 @@ public class World {
 
         //render all entities in the world
         entityManager.drawEntities(g);
+    }
+
+    //testing ground entity spawning
+    private void generateGroundEntities(){
+        Random random = new Random();
+        for(int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int chance = random.nextInt(20);
+                if(chance == 1){
+                    if(!(getTileAtPos(x, y) instanceof FloorTile)) {
+                        entityManager.addEntityToWorld(new Rock(x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT, 32, 32));
+                    }
+                }
+            }
+        }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }

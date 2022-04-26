@@ -2,6 +2,7 @@ package com.spruce.adventure.entity.player;
 
 import com.spruce.adventure.assets.Assets;
 import com.spruce.adventure.entity.Entity;
+import com.spruce.adventure.entity.EntityType;
 import com.spruce.adventure.input.KeyInput;
 import com.spruce.adventure.util.SpriteAnimation;
 import com.spruce.adventure.util.Timer;
@@ -19,7 +20,7 @@ public class Player extends Entity {
     private float moveX, moveY;
 
     public Player(String name, float x, float y) {
-        super(name, x, y, 60, 100);
+        super(name, EntityType.LIVING, x, y, 60, 100);
         this.name = name;
 
         playerAnimation = new SpriteAnimation(80, Assets.playerIdle);
