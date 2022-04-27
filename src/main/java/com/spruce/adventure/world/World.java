@@ -105,6 +105,7 @@ public class World {
                     }
                 }else if(chance == 2 || chance == 3){
                     if((getTileAtPos(x, y) instanceof SmallGrassTile)){
+                        //adds grass to the world. Kinda ugly tho
                         entityManager.addEntityToWorld(new Grass(x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT, 72, 72));
                     }
                 }

@@ -11,7 +11,8 @@ public class Assets {
     public static BufferedImage floor, player, smallGrass, largeRock, grass1;
 
     //player sprites
-    public static BufferedImage[] playerIdle = new BufferedImage[2];
+    public static BufferedImage[] playerIdleRight = new BufferedImage[2];
+    public static BufferedImage[] playerIdleLeft = new BufferedImage[2];
     public static BufferedImage[] playerWalk = new BufferedImage[4];
     public static BufferedImage[] playerWalkLeft = new BufferedImage[4];
 
@@ -21,8 +22,11 @@ public class Assets {
         smallGrass = loadImage("assets/sprites/smallgrass1.png");
 
         //player sprites
-        playerIdle[0] = loadImage("assets/sprites/player/knight_idle_1.png");
-        playerIdle[1] = loadImage("assets/sprites/player/knight_idle_2.png");
+        playerIdleRight[0] = loadImage("assets/sprites/player/knight_idle_1.png");
+        playerIdleRight[1] = loadImage("assets/sprites/player/knight_idle_2.png");
+
+        playerIdleLeft[0] = loadImage("assets/sprites/player/knight_idle_1l.png");
+        playerIdleLeft[1] = loadImage("assets/sprites/player/knight_idle_2l.png");
 
         playerWalk[0] = loadImage("assets/sprites/player/knight_walk_1.png");
         playerWalk[1] = loadImage("assets/sprites/player/knight_walk_2.png");

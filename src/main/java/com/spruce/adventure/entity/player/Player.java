@@ -19,11 +19,14 @@ public class Player extends Entity {
 
     private float moveX, moveY;
 
+    //can either be 0 or 180 (facing right and left)
+    private int direction = 0;
+
     public Player(String name, float x, float y) {
         super(name, EntityType.LIVING, x, y, 60, 100);
         this.name = name;
 
-        playerAnimation = new SpriteAnimation(80, Assets.playerIdle);
+        playerAnimation = new SpriteAnimation(80, Assets.playerIdleRight);
     }
 
     public void tick(){
@@ -37,27 +40,33 @@ public class Player extends Entity {
 
         if(!isMoving()){
             playerAnimation.setDelay(500);
-            playerAnimation.setFrames(Assets.playerIdle);
+            if(direction == 0) {
+                playerAnimation.setFrames(Assets.playerIdleRight);
+            }else{
+                playerAnimation.setFrames(Assets.playerIdleLeft);
+            }
         }
 
         if(KeyInput.isKeyPressed(KeyEvent.VK_W)){
             playerAnimation.setDelay(80);
-            playerAnimation.setFrames(Assets.playerWalk);
+            playerAnimation.setFrames(direction == 0 ? Assets.playerWalk : Assets.playerWalkLeft);
             moveY = - speed;
         }
         if(KeyInput.isKeyPressed(KeyEvent.VK_S)){
             playerAnimation.setDelay(80);
-            playerAnimation.setFrames(Assets.playerWalk);
+            playerAnimation.setFrames(direction == 0 ? Assets.playerWalk : Assets.playerWalkLeft);
             moveY = speed;
         }
         if(KeyInput.isKeyPressed(KeyEvent.VK_A)){
             playerAnimation.setDelay(80);
             moveX = - speed;
+            direction = 180;
             playerAnimation.setFrames(Assets.playerWalkLeft);
         }
         if(KeyInput.isKeyPressed(KeyEvent.VK_D)){
             playerAnimation.setDelay(80);
             moveX = speed;
+            direction = 0;
             playerAnimation.setFrames(Assets.playerWalk);
         }
 
