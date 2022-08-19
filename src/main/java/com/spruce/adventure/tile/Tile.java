@@ -8,8 +8,6 @@ public class Tile {
     public static Tile[] tiles = new Tile[256];
     public static FloorTile floorTile = new FloorTile(0);
     public static SmallGrassTile smallGrassTile = new SmallGrassTile(1);
-    //ground item tiles
-    public static LargeRockTile largeRockTile = new LargeRockTile(2);
 
     public static final int TILEWIDTH = 64, TILEHEIGHT = 64;
 

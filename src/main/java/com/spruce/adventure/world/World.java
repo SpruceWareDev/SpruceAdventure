@@ -1,21 +1,17 @@
 package com.spruce.adventure.world;
 
 import com.spruce.adventure.Game;
-import com.spruce.adventure.GameLoop;
 import com.spruce.adventure.camera.Camera;
 import com.spruce.adventure.display.Display;
 import com.spruce.adventure.entity.EntityManager;
-import com.spruce.adventure.entity.ground.Grass;
-import com.spruce.adventure.entity.ground.Rock;
+import com.spruce.adventure.entity.environment.Tree;
 import com.spruce.adventure.entity.player.Player;
 import com.spruce.adventure.tile.FloorTile;
-import com.spruce.adventure.tile.LargeRockTile;
-import com.spruce.adventure.tile.SmallGrassTile;
 import com.spruce.adventure.tile.Tile;
+import com.spruce.adventure.ui.hud.HUD;
 import com.spruce.adventure.util.Utils;
 
 import java.awt.*;
-import java.util.Arrays;
 import java.util.Random;
 
 public class World {
@@ -28,6 +24,7 @@ public class World {
     public EntityManager entityManager = new EntityManager(this);
 
     public Camera camera;
+    public HUD hud;
 
     private Player thePlayer;
 
@@ -37,9 +34,10 @@ public class World {
         camera = new Camera(game, 0, 0);
         thePlayer = new Player("Test Player", playerStartX * Tile.TILEWIDTH, playerStartY * Tile.TILEHEIGHT);
         entityManager.addEntityToWorld(thePlayer);
+        hud = new HUD();
 
-        //testing ground generation
-        generateGroundEntities();
+        //test tree generation
+        //generateTrees(30);
     }
 
     private void loadWorld(String path){
@@ -73,6 +71,7 @@ public class World {
         camera.centerOnEntity(thePlayer);
         camera.tick();
         entityManager.tick();
+        hud.tick();
     }
 
     public void renderWorld(Graphics g){
@@ -90,26 +89,18 @@ public class World {
 
         //render all entities in the world
         entityManager.drawEntities(g);
+        hud.render(g);
     }
 
-    //testing ground entity spawning
-    private void generateGroundEntities(){
+    private void generateTrees(int amount){
         Random random = new Random();
-        for(int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                int chance = random.nextInt(20);
-                if(chance == 1){
-                    if(!(getTileAtPos(x, y) instanceof FloorTile)) {
-                        //adds random rocks to the world
-                        entityManager.addEntityToWorld(new Rock(x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT, 32, 32));
-                    }
-                }else if(chance == 2 || chance == 3){
-                    if((getTileAtPos(x, y) instanceof SmallGrassTile)){
-                        //adds grass to the world. Kinda ugly tho
-                        entityManager.addEntityToWorld(new Grass(x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT, 72, 72));
-                    }
-                }
-            }
+        for(int i = 0; i < amount; i++){
+            int genX = random.nextInt(width);
+            int genY = random.nextInt(height);
+            if(getTileAtPos(genX, genY) instanceof FloorTile)
+                continue;
+
+            entityManager.addEntityToWorld(new Tree(genX * Tile.TILEWIDTH, genY * Tile.TILEHEIGHT));
         }
     }
 

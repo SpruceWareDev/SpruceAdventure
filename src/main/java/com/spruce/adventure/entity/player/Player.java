@@ -4,6 +4,7 @@ import com.spruce.adventure.assets.Assets;
 import com.spruce.adventure.entity.Entity;
 import com.spruce.adventure.entity.EntityType;
 import com.spruce.adventure.input.KeyInput;
+import com.spruce.adventure.item.Inventory;
 import com.spruce.adventure.util.SpriteAnimation;
 import com.spruce.adventure.util.Timer;
 
@@ -12,7 +13,6 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
 
-    private String name;
     private float speed = 3f;
 
     private SpriteAnimation playerAnimation;
@@ -22,13 +22,17 @@ public class Player extends Entity {
     //can either be 0 or 180 (facing right and left)
     private int direction = 0;
 
+    //inventory system
+    public Inventory inventory;
+
     public Player(String name, float x, float y) {
         super(name, EntityType.LIVING, x, y, 60, 100);
-        this.name = name;
+        inventory = new Inventory(this, 100);
 
         playerAnimation = new SpriteAnimation(80, Assets.playerIdleRight);
     }
 
+    @Override
     public void tick(){
         playerAnimation.tick();
         handleMovement();

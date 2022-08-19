@@ -5,8 +5,10 @@ import com.spruce.adventure.display.Display;
 import com.spruce.adventure.entity.EntityManager;
 import com.spruce.adventure.entity.player.Player;
 import com.spruce.adventure.input.KeyInput;
+import com.spruce.adventure.input.MouseInput;
 import com.spruce.adventure.ui.font.FontRenderer;
 import com.spruce.adventure.ui.font.Fonts;
+import com.spruce.adventure.ui.hud.HUD;
 import com.spruce.adventure.world.World;
 
 import java.awt.*;
@@ -28,6 +30,8 @@ public class Game {
     private void init(){
         display = new Display("Spruce Adventure [Development Build 1]", 1280, 720);
         display.getFrame().addKeyListener(KeyInput.get());
+        display.getFrame().addMouseMotionListener(MouseInput.get());
+        display.getFrame().addMouseListener(MouseInput.get());
         Assets.init();
 
         gameWorld = new World(this, "assets/worlds/testworld.world");
@@ -47,10 +51,6 @@ public class Game {
         //Things to draw
 
         gameWorld.renderWorld(g);
-
-        //debug fps & tps
-        FontRenderer.drawString(g, "FPS " + GameLoop.getFps(), 6, 22, Color.BLACK, Fonts.font22);
-        FontRenderer.drawString(g, "TPS " + GameLoop.getDebugTPS(), 6, 44, Color.BLACK, Fonts.font22);
 
         //end of drawing
         bs.show();

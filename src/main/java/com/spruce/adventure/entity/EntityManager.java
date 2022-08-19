@@ -2,6 +2,9 @@ package com.spruce.adventure.entity;
 
 import com.spruce.adventure.Game;
 import com.spruce.adventure.assets.Assets;
+import com.spruce.adventure.entity.player.Player;
+import com.spruce.adventure.input.MouseInput;
+import com.spruce.adventure.tile.Tile;
 import com.spruce.adventure.world.World;
 
 import java.awt.*;
@@ -38,7 +41,15 @@ public class EntityManager {
 
     public void drawEntities(Graphics g){
         for(Entity e : entities){
-            g.drawImage(e.getSprite(), (int) (e.getX() - world.camera.getxOffset()), (int) (e.getY() - world.camera.getyOffset()), (int) e.getWidth(), (int) e.getHeight(), null);
+            if (!(e instanceof Player)){
+               g.drawImage(e.getSprite(), (int) (e.getX() - world.camera.getxOffset()), (int) (e.getY() - world.camera.getyOffset()), (int) e.getWidth(), (int) e.getHeight(), null);
+            }
+        }
+
+        for(Entity e : entities){
+            if(e instanceof Player){
+                g.drawImage(e.getSprite(), (int) (e.getX() - world.camera.getxOffset()), (int) (e.getY() - world.camera.getyOffset()), (int) e.getWidth(), (int) e.getHeight(), null);
+            }
         }
     }
 }
