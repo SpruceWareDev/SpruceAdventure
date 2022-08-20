@@ -68,6 +68,7 @@ public class HUD {
         inventoryWeightBar.update((int) this.world.getThePlayer().inventory.getCurrentWeightAsPercentage());
         uiManager.tick();
         hotbarManager.tick();
+        handlehHotbar();
     }
 
     public void render(Graphics g){
@@ -77,10 +78,10 @@ public class HUD {
         }
 
         uiManager.render(g);
-        hotbar(g);
+        renderHotbar(g);
     }
 
-    public void hotbar(Graphics g){
+    public void renderHotbar(Graphics g){
         //slot1
         g.setColor(ColorUtil.setAlpha(180, Color.black));
         g.fillRect(Display.startWidth - 84, 4, 80, 80);
@@ -93,6 +94,10 @@ public class HUD {
         g.setColor(ColorUtil.setAlpha(180, Color.gray));
         g.fillRect(Display.startWidth - 74, 84, 60, 60);
 
+        hotbarManager.render(g);
+    }
+
+    public void handlehHotbar(){
         if(KeyInput.isKeyPressed(KeyEvent.VK_1)){
             hotbarManager.setSelected(0);
         }
@@ -106,7 +111,13 @@ public class HUD {
                 hotbarManager.selected.item = null;
             }
         }
-
-        hotbarManager.render(g);
+        else if(KeyInput.isKeyPressed(KeyEvent.VK_R)){
+            ItemCluster item = hotbarManager.selected.item;
+            if(item != null) {
+                if(world.getThePlayer().inventory.addItemToInv(item)) {
+                    hotbarManager.selected.item = null;
+                }
+            }
+        }
     }
 }

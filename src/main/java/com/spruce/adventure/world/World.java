@@ -34,7 +34,7 @@ public class World {
         loadWorld(worldPath);
 
         camera = new Camera(game, 0, 0);
-        thePlayer = new Player("Test Player", playerStartX * Tile.TILEWIDTH, playerStartY * Tile.TILEHEIGHT);
+        thePlayer = new Player(this, "Test Player", playerStartX * Tile.TILEWIDTH, playerStartY * Tile.TILEHEIGHT);
         entityManager.addEntityToWorld(thePlayer);
         hud = new HUD(this);
 

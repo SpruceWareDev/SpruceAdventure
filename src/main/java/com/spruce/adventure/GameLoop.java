@@ -6,7 +6,7 @@ public class GameLoop implements Runnable{
 
     private Game game;
 
-    private boolean running;
+    public static boolean running;
     private final double tickRate = 1.0d/60.0d;
 
     private int fps = 0, tps = 0;
@@ -14,7 +14,7 @@ public class GameLoop implements Runnable{
 
     private static int debugFPS = 0, debugTPS = 0;
 
-    private Thread gameThread;
+    private static Thread gameThread;
 
     public GameLoop(Game game){
         this.game = game;
@@ -76,6 +76,17 @@ public class GameLoop implements Runnable{
     }
 
     public synchronized void stop(){
+        if(!running)
+            return;
+        running = false;
+        try{
+            gameThread.join();
+        }catch (InterruptedException exception){
+            exception.printStackTrace();
+        }
+    }
+
+    public static void exitGame(){
         if(!running)
             return;
         running = false;

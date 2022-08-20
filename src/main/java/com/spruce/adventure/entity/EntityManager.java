@@ -48,7 +48,9 @@ public class EntityManager {
 
         for(Entity e : entities){
             if(e instanceof Player){
+                Player player = (Player)e;
                 g.drawImage(e.getSprite(), (int) (e.getX() - world.camera.getxOffset()), (int) (e.getY() - world.camera.getyOffset()), (int) e.getWidth(), (int) e.getHeight(), null);
+                player.renderAttack(g);
             }
         }
     }
