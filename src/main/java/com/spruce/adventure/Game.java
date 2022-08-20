@@ -22,7 +22,7 @@ public class Game {
     private BufferStrategy bs;
     private Graphics g;
 
-    private World gameWorld;
+    public static World gameWorld;
 
     public static GuiScreen currentScreen = null;
 
