@@ -22,6 +22,9 @@ public class Player extends Entity {
     //can either be 0 or 180 (facing right and left)
     private int direction = 0;
 
+    //health variable (0 - 100)
+    public int health = 100;
+
     //inventory system
     public Inventory inventory;
 

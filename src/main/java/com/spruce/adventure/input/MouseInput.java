@@ -7,7 +7,9 @@ import java.awt.event.MouseMotionListener;
 public class MouseInput implements MouseMotionListener, MouseListener {
 
     private int mouseX, mouseY;
-    private boolean leftPressed, rightPressed;
+    public boolean leftPressed, rightPressed;
+
+    public int clickedX, clickedY;
 
     private static MouseInput mouseInput;
 
@@ -39,7 +41,8 @@ public class MouseInput implements MouseMotionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-
+        clickedX = mouseEvent.getX();
+        clickedY = mouseEvent.getY();
     }
 
     @Override

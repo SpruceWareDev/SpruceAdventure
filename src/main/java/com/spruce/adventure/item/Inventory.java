@@ -28,4 +28,20 @@ public class Inventory implements ItemContainer{
         }
         return current + item.getClusterWeight() <= this.maxWeight;
     }
+
+    public int getCurrentWeight(){
+        int current = 0;
+        for(ItemCluster i : items){
+            current+=i.getClusterWeight();
+        }
+        return current;
+    }
+
+    public float getCurrentWeightAsPercentage(){
+        float current = 0;
+        for(ItemCluster i : items){
+            current+=i.getClusterWeight();
+        }
+        return (current/maxWeight) * 100;
+    }
 }

@@ -34,7 +34,7 @@ public class World {
         camera = new Camera(game, 0, 0);
         thePlayer = new Player("Test Player", playerStartX * Tile.TILEWIDTH, playerStartY * Tile.TILEHEIGHT);
         entityManager.addEntityToWorld(thePlayer);
-        hud = new HUD();
+        hud = new HUD(this);
 
         //test tree generation
         //generateTrees(30);
@@ -110,5 +110,9 @@ public class World {
 
     public int getHeight() {
         return height;
+    }
+
+    public Player getThePlayer(){
+        return thePlayer;
     }
 }

@@ -10,9 +10,10 @@ import java.awt.*;
 public class Button extends UIComponent {
 
     public String text;
-    public int x, y, width, height;
     public Color color;
     public Runnable clickAction;
+
+    private boolean ran = false;
 
     public Button(String text, int x, int y, int width, int height, Color color, Runnable clickAction) {
         super(x, y, width, height);
@@ -22,14 +23,17 @@ public class Button extends UIComponent {
     }
 
     public void tick(){
-        if(isInside(MouseInput.get().getMouseX(), MouseInput.get().getMouseY(), x, y, x+width, y+height)){
+        if(isInside(MouseInput.get().getMouseX(), MouseInput.get().getMouseY(), x, y, x+width, y+height)
+                && MouseInput.get().leftPressed && !ran){
             clickAction.run();
+            ran = true;
         }
+        ran = MouseInput.get().leftPressed;
     }
 
     public void render(Graphics g){
         g.setColor(this.color);
-        g.drawRect(x, y, width, height);
-        FontRenderer.drawString(g, this.text, x, y + 2, Color.black, Fonts.font18);
+        g.fillRect(x, y, width, height);
+        FontRenderer.drawString(g, this.text, x + 2, y + 20, Color.black, Fonts.font22);
     }
 }

@@ -32,6 +32,8 @@ public class Game {
         display.getFrame().addKeyListener(KeyInput.get());
         display.getFrame().addMouseMotionListener(MouseInput.get());
         display.getFrame().addMouseListener(MouseInput.get());
+        display.getCanvas().addMouseMotionListener(MouseInput.get());
+        display.getCanvas().addMouseListener(MouseInput.get());
         Assets.init();
 
         gameWorld = new World(this, "assets/worlds/testworld.world");

@@ -13,13 +13,9 @@ public class UIComponent {
         this.height = height;
     }
 
-    public void tick(){
+    public void tick(){}
 
-    }
-
-    public void render(Graphics g){
-
-    }
+    public void render(Graphics g){}
 
     public int getX() {
         return x;
