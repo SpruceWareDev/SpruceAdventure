@@ -7,6 +7,7 @@ import com.spruce.adventure.input.KeyInput;
 import com.spruce.adventure.item.HotbarManager;
 import com.spruce.adventure.item.ItemCluster;
 import com.spruce.adventure.item.impl.test.TestItem;
+import com.spruce.adventure.item.impl.weapon.WoodenSword;
 import com.spruce.adventure.ui.component.UIManager;
 import com.spruce.adventure.ui.component.impl.Bar;
 import com.spruce.adventure.ui.component.impl.Button;
@@ -38,9 +39,14 @@ public class HUD {
     public HUD(World world){
         this.world = world;
 
-        //test button to add an item to the inventory
-        uiManager.addComponent(new Button("Add Item", 6, 60, 100, 22, Color.lightGray, ()->{
+        //test buttons to add an item to the inventory
+        uiManager.addComponent(new Button("Test Item", 6, 60, 110, 22, Color.lightGray, ()->{
             if(!world.getThePlayer().inventory.addItemToInv(new ItemCluster(new TestItem(), 1))){
+                System.out.println("Not enough inventory space!");
+            }
+        }));
+        uiManager.addComponent(new Button("Weapon", 6, 84, 110, 22, Color.lightGray, ()->{
+            if(!world.getThePlayer().inventory.addItemToInv(new ItemCluster(new WoodenSword(), 1))){
                 System.out.println("Not enough inventory space!");
             }
         }));

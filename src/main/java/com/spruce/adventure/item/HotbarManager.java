@@ -3,6 +3,7 @@ package com.spruce.adventure.item;
 import com.spruce.adventure.ui.component.impl.InventorySlot;
 
 import java.awt.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +29,10 @@ public class HotbarManager {
         selected = slots.get(index);
         slots.forEach(slot -> slot.selected = false);
         selected.selected = true;
+    }
+
+    public InventorySlot getSlot(int index){
+        return slots.get(index);
     }
 
     public InventorySlot[] getFreeSlots(){

@@ -45,7 +45,7 @@ public class KeyInput implements KeyListener {
 
             case KeyEvent.VK_E:
                 if(Game.currentScreen == null) {
-                    Game.displayGuiScreen(new InventoryScreen(Game.gameWorld.getThePlayer().inventory));
+                    Game.displayGuiScreen(new InventoryScreen(Game.gameWorld, Game.gameWorld.getThePlayer().inventory));
                 }
                 break;
         }

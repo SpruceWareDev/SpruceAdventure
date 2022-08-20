@@ -8,7 +8,10 @@ import java.io.IOException;
 
 public class Assets {
 
-    public static BufferedImage floor, player, smallGrass, tree1;
+    public static BufferedImage floor, player, smallGrass;
+
+    //Items sprites
+    public static BufferedImage woodenSword;
 
     //player sprites
     public static BufferedImage[] playerIdleRight = new BufferedImage[2];
@@ -38,8 +41,8 @@ public class Assets {
         playerWalkLeft[2] = loadImage("assets/sprites/player/knight_walk_3_left.png");
         playerWalkLeft[3] = loadImage("assets/sprites/player/knight_walk_4_left.png");
 
-        //ground sprites
-        tree1 = loadImage("assets/sprites/ground/tree1.png");
+        //item sprites
+        woodenSword = loadImage("assets/sprites/items/wooden_sword.png");
     }
 
     public static BufferedImage loadImage(String path) {
