@@ -1,7 +1,10 @@
 package com.spruce.adventure.item;
 
+import java.awt.image.BufferedImage;
+
 public class Item {
 
+    public BufferedImage texture;
     public String name, description;
     public int maxStackSize;
     public int weight;
@@ -38,5 +41,13 @@ public class Item {
 
     public void setMaxStackSize(int maxStackSize) {
         this.maxStackSize = maxStackSize;
+    }
+
+    public BufferedImage getGroundTexture(){
+        return null;
+    }
+
+    public BufferedImage getInventoryTexture(){
+        return null;
     }
 }

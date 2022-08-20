@@ -4,9 +4,9 @@ import com.spruce.adventure.Game;
 import com.spruce.adventure.camera.Camera;
 import com.spruce.adventure.display.Display;
 import com.spruce.adventure.entity.EntityManager;
-import com.spruce.adventure.entity.environment.Tree;
+import com.spruce.adventure.entity.ground.GroundItem;
 import com.spruce.adventure.entity.player.Player;
-import com.spruce.adventure.tile.FloorTile;
+import com.spruce.adventure.item.ItemCluster;
 import com.spruce.adventure.tile.Tile;
 import com.spruce.adventure.ui.hud.HUD;
 import com.spruce.adventure.util.Utils;
@@ -27,6 +27,8 @@ public class World {
     public HUD hud;
 
     private Player thePlayer;
+
+    public boolean paused = false;
 
     public World(Game game, String worldPath){
         loadWorld(worldPath);
@@ -67,6 +69,9 @@ public class World {
     }
 
     public void tick(){
+        if (paused)
+            return;
+
         //tick entities
         camera.centerOnEntity(thePlayer);
         camera.tick();
@@ -92,16 +97,10 @@ public class World {
         hud.render(g);
     }
 
-    private void generateTrees(int amount){
-        Random random = new Random();
-        for(int i = 0; i < amount; i++){
-            int genX = random.nextInt(width);
-            int genY = random.nextInt(height);
-            if(getTileAtPos(genX, genY) instanceof FloorTile)
-                continue;
-
-            entityManager.addEntityToWorld(new Tree(genX * Tile.TILEWIDTH, genY * Tile.TILEHEIGHT));
-        }
+    public void dropItemOnGround(ItemCluster item){
+        GroundItem groundItem = new GroundItem(item, thePlayer.getX(), thePlayer.getY(),
+                item.getBaseItem().getGroundTexture().getWidth(), item.getBaseItem().getGroundTexture().getHeight());
+        entityManager.addEntityToWorld(groundItem);
     }
 
     public int getWidth() {

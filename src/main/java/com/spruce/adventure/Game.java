@@ -9,6 +9,7 @@ import com.spruce.adventure.input.MouseInput;
 import com.spruce.adventure.ui.font.FontRenderer;
 import com.spruce.adventure.ui.font.Fonts;
 import com.spruce.adventure.ui.hud.HUD;
+import com.spruce.adventure.ui.screen.GuiScreen;
 import com.spruce.adventure.world.World;
 
 import java.awt.*;
@@ -22,6 +23,8 @@ public class Game {
     private Graphics g;
 
     private World gameWorld;
+
+    public static GuiScreen currentScreen = null;
 
     public Game(){
         init();
@@ -51,8 +54,12 @@ public class Game {
         g.clearRect(0, 0, (int) display.getSize().getWidth(), (int) display.getSize().getHeight());
 
         //Things to draw
-
         gameWorld.renderWorld(g);
+
+        //draws the current screen if it's not null
+        if(currentScreen != null){
+            currentScreen.drawScreen(g, MouseInput.get().getMouseX(), MouseInput.get().getMouseY());
+        }
 
         //end of drawing
         bs.show();
@@ -60,7 +67,20 @@ public class Game {
     }
 
     public void tick(){
+        gameWorld.paused = currentScreen != null;
         gameWorld.tick();
+
+        if(currentScreen != null){
+            currentScreen.tick();
+        }
+    }
+
+    public static void displayGuiScreen(GuiScreen screen){
+        currentScreen = screen;
+    }
+
+    public static void closeCurrentScreen(){
+        currentScreen = null;
     }
 
     public Display getDisplay() {
