@@ -56,7 +56,7 @@ public class Player extends Entity {
             BufferedImage itemImage = item.baseItem.getGroundTexture();
             g.drawImage(itemImage, (int) ((getX() + getWidth()-12) - world.camera.getxOffset()), (int) ((getY() + getHeight()/2) - world.camera.getyOffset()), null);
         }
-        
+
          */
     }
 
@@ -76,7 +76,7 @@ public class Player extends Entity {
         if(KeyInput.isKeyPressed(KeyEvent.VK_W)){
             playerAnimation.setDelay(80);
             playerAnimation.setFrames(direction == 0 ? Assets.playerWalk : Assets.playerWalkLeft);
-            moveY = - speed;
+            moveY = -speed;
         }
         if(KeyInput.isKeyPressed(KeyEvent.VK_S)){
             playerAnimation.setDelay(80);
@@ -85,7 +85,7 @@ public class Player extends Entity {
         }
         if(KeyInput.isKeyPressed(KeyEvent.VK_A)){
             playerAnimation.setDelay(80);
-            moveX = - speed;
+            moveX = -speed;
             direction = 180;
             playerAnimation.setFrames(Assets.playerWalkLeft);
         }

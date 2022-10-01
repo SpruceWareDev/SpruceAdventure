@@ -3,12 +3,14 @@ package com.spruce.adventure.world;
 import com.spruce.adventure.Game;
 import com.spruce.adventure.camera.Camera;
 import com.spruce.adventure.display.Display;
+import com.spruce.adventure.entity.Entity;
 import com.spruce.adventure.entity.EntityManager;
 import com.spruce.adventure.entity.ground.GroundItem;
 import com.spruce.adventure.entity.player.Player;
 import com.spruce.adventure.item.ItemCluster;
 import com.spruce.adventure.tile.Tile;
 import com.spruce.adventure.ui.hud.HUD;
+import com.spruce.adventure.util.Size;
 import com.spruce.adventure.util.Utils;
 
 import java.awt.*;
@@ -76,6 +78,7 @@ public class World {
         camera.centerOnEntity(thePlayer);
         camera.tick();
         entityManager.tick();
+        pickUpGroundItems();
         hud.tick();
     }
 
@@ -101,6 +104,20 @@ public class World {
         GroundItem groundItem = new GroundItem(item, thePlayer.getX(), thePlayer.getY(),
                 item.getBaseItem().getGroundTexture().getWidth(), item.getBaseItem().getGroundTexture().getHeight());
         entityManager.addEntityToWorld(groundItem);
+    }
+
+    public void pickUpGroundItems(){
+        for(int i = 0; i < entityManager.getEntities().size() - 1; i++){
+            if(!(entityManager.getEntities().get(i) instanceof GroundItem))
+                continue;
+            if(!thePlayer.getSizeAsRect2D().intersects(entityManager.getEntities().get(i).getSizeAsRect2D()))
+                continue;
+
+            if(System.currentTimeMillis() > ((GroundItem) entityManager.getEntities().get(i)).pickupTime){
+                thePlayer.inventory.addItemToInv(((GroundItem) entityManager.getEntities().get(i)).getItem());
+                entityManager.removeEntityFromWorld(entityManager.getEntities().get(i));
+            }
+        }
     }
 
     public int getWidth() {

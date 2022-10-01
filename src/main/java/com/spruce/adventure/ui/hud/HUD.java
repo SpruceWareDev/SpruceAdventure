@@ -55,6 +55,7 @@ public class HUD {
         slot1 = new InventorySlot(null, true, 0, Display.startWidth - 74, 14, 60, 60);
         slot2 = new InventorySlot(null, false, 1, Display.startWidth - 74, 84, 60, 60);
         hotbarManager.addSlots(slot1, slot2);
+        hotbarManager.setSelected(0);
 
         //health bar and inventory weight bars
         playerHealthBar = new Bar(6, 6, 100, 22, world.getThePlayer().health, Color.red, Color.black);

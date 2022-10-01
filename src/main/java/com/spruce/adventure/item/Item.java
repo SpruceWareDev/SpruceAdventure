@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 
 public class Item {
 
-    public BufferedImage texture;
     public String name, description;
     public int maxStackSize;
     public int weight;
@@ -14,6 +13,9 @@ public class Item {
         this.description = description;
         this.weight = weight;
     }
+
+    // method is overwritten in individual item classes.
+    public void interactWithItem(){}
 
     public boolean isStackable(){
         return maxStackSize > 1;

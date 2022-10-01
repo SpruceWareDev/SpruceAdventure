@@ -51,4 +51,8 @@ public class Utils {
 
         return rotatedImage;
     }
+
+    public static boolean intersects(Size size, Size size1){
+        return ((size.getX() >= size1.getX()) && (size.getY() >= size1.getY())) && (((size.getX() + size.getWidth()) <= (size1.getX() + size1.getWidth())) && (size.getY() + size.getHeight()) <= (size1.getY() + size1.getHeight()));
+    }
 }

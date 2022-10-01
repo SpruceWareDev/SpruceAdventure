@@ -33,6 +33,10 @@ public class EntityManager {
         this.entities.clear();
     }
 
+    public List<Entity> getEntities() {
+        return entities;
+    }
+
     public void tick(){
         for(Entity e : entities){
             e.tick();
