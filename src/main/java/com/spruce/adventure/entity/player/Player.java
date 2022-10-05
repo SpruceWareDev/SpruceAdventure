@@ -20,6 +20,7 @@ public class Player extends Entity {
 
     public World world;
 
+    private float defaultSpeed = 3f;
     private float speed = 3f;
 
     private SpriteAnimation playerAnimation;
@@ -31,6 +32,8 @@ public class Player extends Entity {
 
     //health variable (0 - 100)
     public int health = 100;
+
+    public boolean sprinting = false;
 
     //inventory system
     public Inventory inventory;
@@ -47,17 +50,6 @@ public class Player extends Entity {
     public void tick(){
         playerAnimation.tick();
         handleMovement();
-    }
-
-    public void renderAttack(Graphics g){
-        /*
-        ItemCluster item = world.hud.hotbarManager.slots.get(0).item;
-        if(item != null) {
-            BufferedImage itemImage = item.baseItem.getGroundTexture();
-            g.drawImage(itemImage, (int) ((getX() + getWidth()-12) - world.camera.getxOffset()), (int) ((getY() + getHeight()/2) - world.camera.getyOffset()), null);
-        }
-
-         */
     }
 
     private void handleMovement(){
@@ -96,12 +88,27 @@ public class Player extends Entity {
             playerAnimation.setFrames(Assets.playerWalk);
         }
 
+        speed = handleSprinting();
+
         setY(getY() + moveY);
         setX(getX() + moveX);
     }
 
+    private float handleSprinting(){
+        setSprinting(KeyInput.isKeyPressed(KeyEvent.VK_SHIFT) && isMoving());
+        return isSprinting() ? 5f : defaultSpeed;
+    }
+
+    public boolean isSprinting(){
+        return sprinting;
+    }
+
+    public void setSprinting(boolean sprinting) {
+        this.sprinting = sprinting;
+    }
+
     public boolean isMoving(){
-        return !(moveX == 0) && !(moveY == 0);
+        return !(moveX == 0) || !(moveY == 0);
     }
 
     public BufferedImage getSprite(){

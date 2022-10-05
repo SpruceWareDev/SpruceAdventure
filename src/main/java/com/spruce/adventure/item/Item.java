@@ -45,10 +45,6 @@ public class Item {
         this.maxStackSize = maxStackSize;
     }
 
-    public BufferedImage getGroundTexture(){
-        return null;
-    }
-
     public BufferedImage getInventoryTexture(){
         return null;
     }

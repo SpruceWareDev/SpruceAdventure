@@ -16,8 +16,8 @@ public class PausedScreen extends GuiScreen {
     private UIManager uiManager = new UIManager();
 
     public PausedScreen(){
-        uiManager.addComponent(new Button("Quit Game", Display.startWidth/2-22, Display.startHeight/2, 44, 22,
-                Color.gray, GameLoop::exitGame));
+        uiManager.addComponent(new Button("Quit Game", Display.startWidth/2-60, Display.startHeight/2, 120, 26,
+                Color.gray, ()->{System.exit(0);}));
     }
 
     @Override

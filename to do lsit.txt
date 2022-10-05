@@ -1,0 +1,18 @@
+** Spruce Adventure To Do list **
+
+-----
+To-Do
++ Re-design inventory GUI
++ Add cooldown to sprint
++ Add states
++ Add main menu state
+-----
+-----
+Done
++ Remove ground items
++ Re-design pause GUI
++ Make hotbar use slot IDs not array indexes
++ Add sprinting
+-----
+
+

@@ -1,6 +1,5 @@
 package com.spruce.adventure.ui.hud;
 
-import com.spruce.adventure.Game;
 import com.spruce.adventure.GameLoop;
 import com.spruce.adventure.display.Display;
 import com.spruce.adventure.input.KeyInput;
@@ -30,7 +29,7 @@ public class HUD {
     private Bar inventoryWeightBar;
 
     //hotbar management
-    public HotbarManager hotbarManager = new HotbarManager();
+    public HotbarManager hotbarManager;
     private InventorySlot slot1;
     private InventorySlot slot2;
 
@@ -52,6 +51,7 @@ public class HUD {
         }));
 
         //Hotbar slots
+        hotbarManager = new HotbarManager(world);
         slot1 = new InventorySlot(null, true, 0, Display.startWidth - 74, 14, 60, 60);
         slot2 = new InventorySlot(null, false, 1, Display.startWidth - 74, 84, 60, 60);
         hotbarManager.addSlots(slot1, slot2);
@@ -69,7 +69,6 @@ public class HUD {
         inventoryWeightBar.update((int) this.world.getThePlayer().inventory.getCurrentWeightAsPercentage());
         uiManager.tick();
         hotbarManager.tick();
-        handlehHotbar();
     }
 
     public void render(Graphics g){
@@ -96,29 +95,5 @@ public class HUD {
         g.fillRect(Display.startWidth - 74, 84, 60, 60);
 
         hotbarManager.render(g);
-    }
-
-    public void handlehHotbar(){
-        if(KeyInput.isKeyPressed(KeyEvent.VK_1)){
-            hotbarManager.setSelected(0);
-        }
-        else  if(KeyInput.isKeyPressed(KeyEvent.VK_2)){
-            hotbarManager.setSelected(1);
-        }
-        else if(KeyInput.isKeyPressed(KeyEvent.VK_Q)){
-            ItemCluster item = hotbarManager.selected.item;
-            if(item != null) {
-                world.dropItemOnGround(item);
-                hotbarManager.selected.item = null;
-            }
-        }
-        else if(KeyInput.isKeyPressed(KeyEvent.VK_R)){
-            ItemCluster item = hotbarManager.selected.item;
-            if(item != null) {
-                if(world.getThePlayer().inventory.addItemToInv(item)) {
-                    hotbarManager.selected.item = null;
-                }
-            }
-        }
     }
 }
