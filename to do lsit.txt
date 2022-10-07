@@ -3,7 +3,7 @@
 -----
 To-Do
 + Re-design inventory GUI
-+ Add cooldown to sprint
++ Re-design HUD
 + Add states
 + Add main menu state
 -----
@@ -13,6 +13,7 @@ Done
 + Re-design pause GUI
 + Make hotbar use slot IDs not array indexes
 + Add sprinting
++ Add cooldown to sprint
 -----
 
 

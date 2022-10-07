@@ -20,20 +20,22 @@ public class Player extends Entity {
 
     public World world;
 
-    private float defaultSpeed = 3f;
-    private float speed = 3f;
+    private final SpriteAnimation playerAnimation;
 
-    private SpriteAnimation playerAnimation;
-
+    //movement variables
     private float moveX, moveY;
+    private float speed = 3f;
 
     //can either be 0 or 180 (facing right and left)
     private int direction = 0;
 
+    //sprinting variables
+    public boolean sprinting = false;
+    public int sprintTicks = 0;
+    public int maxSprintTicks = 120;
+
     //health variable (0 - 100)
     public int health = 100;
-
-    public boolean sprinting = false;
 
     //inventory system
     public Inventory inventory;
@@ -95,8 +97,24 @@ public class Player extends Entity {
     }
 
     private float handleSprinting(){
-        setSprinting(KeyInput.isKeyPressed(KeyEvent.VK_SHIFT) && isMoving());
+        boolean shouldSprint;
+        float defaultSpeed = 3f;
+        shouldSprint = KeyInput.isKeyPressed(KeyEvent.VK_SHIFT) && isMoving();
+        if(shouldSprint && maxSprintTicks >= sprintTicks && sprintTicks > 0){
+            sprintTicks--;
+        }
+        else if(sprintTicks == 0){
+            shouldSprint = false;
+        }
+        if(!isMoving() && sprintTicks < maxSprintTicks){
+            sprintTicks++;
+        }
+        setSprinting(shouldSprint);
         return isSprinting() ? 5f : defaultSpeed;
+    }
+
+    public float getSprintBarPercent(){
+        return ((float)(sprintTicks) / (float)(maxSprintTicks)) * 100f;
     }
 
     public boolean isSprinting(){

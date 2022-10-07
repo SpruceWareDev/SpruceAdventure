@@ -25,8 +25,9 @@ public class HUD {
 
     public UIManager uiManager = new UIManager();
     //Components
-    private Bar playerHealthBar;
-    private Bar inventoryWeightBar;
+    private final Bar playerHealthBar;
+    private final Bar inventoryWeightBar;
+    private final Bar sprintCooldownBar;
 
     //hotbar management
     public HotbarManager hotbarManager;
@@ -60,15 +61,22 @@ public class HUD {
         //health bar and inventory weight bars
         playerHealthBar = new Bar(6, 6, 100, 22, world.getThePlayer().health, Color.red, Color.black);
         inventoryWeightBar = new Bar(6, 30, 100, 22, (int) world.getThePlayer().inventory.getCurrentWeightAsPercentage(), Color.yellow, Color.black);
+        sprintCooldownBar = new Bar(108, 6, 100, 22, (int) world.getThePlayer().getSprintBarPercent(), Color.cyan, Color.black);
         uiManager.addComponent(playerHealthBar);
         uiManager.addComponent(inventoryWeightBar);
+        uiManager.addComponent(sprintCooldownBar);
     }
 
     public void tick(){
-        playerHealthBar.update(this.world.getThePlayer().health);
-        inventoryWeightBar.update((int) this.world.getThePlayer().inventory.getCurrentWeightAsPercentage());
+        updateBars();
         uiManager.tick();
         hotbarManager.tick();
+    }
+
+    private void updateBars(){
+        playerHealthBar.update(this.world.getThePlayer().health);
+        inventoryWeightBar.update((int) this.world.getThePlayer().inventory.getCurrentWeightAsPercentage());
+        sprintCooldownBar.update((int) world.getThePlayer().getSprintBarPercent());
     }
 
     public void render(Graphics g){
