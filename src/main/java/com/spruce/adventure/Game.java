@@ -6,6 +6,7 @@ import com.spruce.adventure.entity.EntityManager;
 import com.spruce.adventure.entity.player.Player;
 import com.spruce.adventure.input.KeyInput;
 import com.spruce.adventure.input.MouseInput;
+import com.spruce.adventure.state.StateManager;
 import com.spruce.adventure.ui.font.FontRenderer;
 import com.spruce.adventure.ui.font.Fonts;
 import com.spruce.adventure.ui.hud.HUD;
@@ -22,9 +23,7 @@ public class Game {
     private BufferStrategy bs;
     private Graphics g;
 
-    public static World gameWorld;
-
-    public static GuiScreen currentScreen = null;
+    public static StateManager stateManager;
 
     public Game(){
         init();
@@ -39,7 +38,7 @@ public class Game {
         display.getCanvas().addMouseListener(MouseInput.get());
         Assets.init();
 
-        gameWorld = new World(this, "assets/worlds/testworld.world");
+        stateManager = new StateManager(this);
     }
 
     public void render(){
@@ -54,12 +53,7 @@ public class Game {
         g.clearRect(0, 0, (int) display.getSize().getWidth(), (int) display.getSize().getHeight());
 
         //Things to draw
-        gameWorld.renderWorld(g);
-
-        //draws the current screen if it's not null
-        if(currentScreen != null){
-            currentScreen.drawScreen(g, MouseInput.get().getMouseX(), MouseInput.get().getMouseY());
-        }
+        stateManager.render(g);
 
         //end of drawing
         bs.show();
@@ -67,20 +61,7 @@ public class Game {
     }
 
     public void tick(){
-        gameWorld.paused = currentScreen != null;
-        gameWorld.tick();
-
-        if(currentScreen != null){
-            currentScreen.tick();
-        }
-    }
-
-    public static void displayGuiScreen(GuiScreen screen){
-        currentScreen = screen;
-    }
-
-    public static void closeCurrentScreen(){
-        currentScreen = null;
+        stateManager.tick();
     }
 
     public Display getDisplay() {

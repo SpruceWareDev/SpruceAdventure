@@ -1,6 +1,7 @@
 package com.spruce.adventure.input;
 
 import com.spruce.adventure.Game;
+import com.spruce.adventure.state.GameState;
 import com.spruce.adventure.ui.screen.screens.InventoryScreen;
 import com.spruce.adventure.ui.screen.screens.PausedScreen;
 import org.ietf.jgss.GSSManager;
@@ -36,16 +37,16 @@ public class KeyInput implements KeyListener {
 
         switch (keyEvent.getKeyCode()){
             case KeyEvent.VK_ESCAPE:
-                if(Game.currentScreen == null) {
-                    Game.displayGuiScreen(new PausedScreen());
+                if(GameState.currentScreen == null) {
+                    GameState.displayGuiScreen(new PausedScreen());
                 }else{
-                    Game.closeCurrentScreen();
+                    GameState.closeCurrentScreen();
                 }
                 break;
 
             case KeyEvent.VK_E:
-                if(Game.currentScreen == null) {
-                    Game.displayGuiScreen(new InventoryScreen(Game.gameWorld, Game.gameWorld.getThePlayer().inventory));
+                if(GameState.currentScreen == null) {
+                    GameState.displayGuiScreen(new InventoryScreen(GameState.getGameWorld(), GameState.getGameWorld().getThePlayer().inventory));
                 }
                 break;
         }

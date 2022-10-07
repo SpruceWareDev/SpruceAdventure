@@ -38,9 +38,6 @@ public class World {
         thePlayer = new Player(this, "Test Player", playerStartX * Tile.TILEWIDTH, playerStartY * Tile.TILEHEIGHT);
         entityManager.addEntityToWorld(thePlayer);
         hud = new HUD(this);
-
-        //test tree generation
-        //generateTrees(30);
     }
 
     private void loadWorld(String path){

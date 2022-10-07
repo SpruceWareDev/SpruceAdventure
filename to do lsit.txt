@@ -4,8 +4,7 @@
 To-Do
 + Re-design inventory GUI
 + Re-design HUD
-+ Add states
-+ Add main menu state
++ Improve main menu
 -----
 -----
 Done
@@ -14,6 +13,8 @@ Done
 + Make hotbar use slot IDs not array indexes
 + Add sprinting
 + Add cooldown to sprint
++ Add states
++ Add main menu state
 -----
 
 
